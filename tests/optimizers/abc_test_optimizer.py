@@ -45,7 +45,7 @@ class ABCTestOptimizer(object):
             ("velocity_history", (1000, 10, 2)),
         ],
     )
-    def test_training_history_shape(self, optimizer_history, history, expected_shape):
+    def test_train_history(self, optimizer_history, history, expected_shape):
         """Test if training histories are of expected shape"""
         opt = vars(optimizer_history)
         assert np.array(opt[history]).shape == expected_shape
@@ -59,7 +59,7 @@ class ABCTestOptimizer(object):
 
 
     def test_ftol_effect(self, options, optimizer):
-        """Test if setting the ftol breaks the optimization process accodingly"""
+        """Test if setting the ftol breaks the optimization process"""
         opt = optimizer(10, 2, options=options, ftol=1e-1)
         opt.optimize(sphere, 2000)
         assert np.array(opt.cost_history).shape != (2000,)
