@@ -4,10 +4,10 @@
 import numpy as np
 import pytest
 
-from pyswarms.utils.functions.single_obj import sphere, rosenbrock
+from pyswarms.utils.functions.single_obj import sphere
 
 
-class ABCTestOptimizer(object):
+class ABCTestDiscreteOptimizer(object):
     """Abstract class that defines various tests for high-level optimizers
 
     Whenever an optimizer implementation inherits from ABCTestOptimizer,
@@ -45,11 +45,6 @@ class ABCTestOptimizer(object):
 
         return obj_with_args_
 
-    @pytest.fixture
-    def obj_without_args(self):
-        """Objective function without arguments"""
-        return rosenbrock
-
     @pytest.mark.parametrize(
         "history, expected_shape",
         [
@@ -76,46 +71,3 @@ class ABCTestOptimizer(object):
         opt = optimizer(10, 2, options=options, ftol=1e-1)
         opt.optimize(sphere, 2000)
         assert np.array(opt.cost_history).shape != (2000,)
-
-    def test_obj_with_kwargs(self, obj_with_args, optimizer, options):
-        """Test if kwargs are passed properly in objfunc"""
-        x_max = 10 * np.ones(2)
-        x_min = -1 * x_max
-        bounds = (x_min, x_max)
-        opt = optimizer(100, 2, options=options, bounds=bounds)
-        cost, pos = opt.optimize(obj_with_args, 1000, a=1, b=100)
-        assert np.isclose(cost, 0, rtol=1e-03)
-        assert np.isclose(pos[0], 1.0, rtol=1e-03)
-        assert np.isclose(pos[1], 1.0, rtol=1e-03)
-
-    def test_obj_unnecessary_kwargs(
-        self, obj_without_args, optimizer, options
-    ):
-        """Test if error is raised given unnecessary kwargs"""
-        x_max = 10 * np.ones(2)
-        x_min = -1 * x_max
-        bounds = (x_min, x_max)
-        opt = optimizer(100, 2, options=options, bounds=bounds)
-        with pytest.raises(TypeError):
-            # kwargs `a` should not be supplied
-            cost, pos = opt.optimize(obj_without_args, 1000, a=1)
-
-    def test_obj_missing_kwargs(self, obj_with_args, optimizer, options):
-        """Test if error is raised with incomplete kwargs"""
-        x_max = 10 * np.ones(2)
-        x_min = -1 * x_max
-        bounds = (x_min, x_max)
-        opt = optimizer(100, 2, options=options, bounds=bounds)
-        with pytest.raises(TypeError):
-            # kwargs `b` is missing here
-            cost, pos = opt.optimize(obj_with_args, 1000, a=1)
-
-    def test_obj_incorrect_kwargs(self, obj_with_args, optimizer, options):
-        """Test if error is raised with wrong kwargs"""
-        x_max = 10 * np.ones(2)
-        x_min = -1 * x_max
-        bounds = (x_min, x_max)
-        opt = optimizer(100, 2, options=options, bounds=bounds)
-        with pytest.raises(TypeError):
-            # Wrong kwargs
-            cost, pos = opt.optimize(obj_with_args, 1000, c=1, d=100)

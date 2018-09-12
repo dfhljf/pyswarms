@@ -4,12 +4,12 @@
 # Import modules
 import pytest
 
-from .abc_test_optimizer import ABCTestOptimizer
+from .abc_test_discrete_optimizer import ABCTestDiscreteOptimizer
 from pyswarms.discrete import BinaryPSO
 from pyswarms.utils.functions.single_obj import sphere
 
-class TestDiscreteOptimizer(ABCTestOptimizer):
 
+class TestDiscreteOptimizer(ABCTestDiscreteOptimizer):
     @pytest.fixture
     def optimizer(self):
         return BinaryPSO
@@ -26,4 +26,3 @@ class TestDiscreteOptimizer(ABCTestOptimizer):
         pso.optimize(sphere, 10)
         pso.reset()
         return pso
-

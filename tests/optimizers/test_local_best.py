@@ -7,8 +7,8 @@ from .abc_test_optimizer import ABCTestOptimizer
 from pyswarms.single import LocalBestPSO
 from pyswarms.utils.functions.single_obj import sphere
 
-class TestLocalBestOptimizer(ABCTestOptimizer):
 
+class TestLocalBestOptimizer(ABCTestOptimizer):
     @pytest.fixture
     def optimizer(self):
         return LocalBestPSO

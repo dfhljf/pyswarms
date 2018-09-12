@@ -7,8 +7,8 @@ from .abc_test_optimizer import ABCTestOptimizer
 from pyswarms.single import GlobalBestPSO
 from pyswarms.utils.functions.single_obj import sphere
 
-class TestGlobalBestOptimizer(ABCTestOptimizer):
 
+class TestGlobalBestOptimizer(ABCTestOptimizer):
     @pytest.fixture
     def optimizer(self):
         return GlobalBestPSO
@@ -25,4 +25,3 @@ class TestGlobalBestOptimizer(ABCTestOptimizer):
         pso.optimize(sphere, 10)
         pso.reset()
         return pso
-

@@ -9,18 +9,6 @@ from pyswarms.backend.topology import Pyramid, Random, Ring, Star, VonNeumann
 from pyswarms.single import GeneralOptimizerPSO
 from pyswarms.utils.functions.single_obj import sphere
 
-
-@pytest.fixture(scope="module")
-def general_opt_history(topology):
-    """Returns a GeneralOptimizerPSO instance run for 1000 iterations for checking
-    history"""
-    pso = GeneralOptimizerPSO(
-        10, 2, {"c1": 0.5, "c2": 0.7, "w": 0.5}, topology=topology
-    )
-    pso.optimize(sphere, 1000)
-    return pso
-
-
 @pytest.fixture(scope="module")
 def general_opt_reset(topology):
     """Returns a GeneralOptimizerPSO instance that has been run and reset to check
@@ -31,9 +19,6 @@ def general_opt_reset(topology):
     pso.optimize(sphere, 10, verbose=0)
     pso.reset()
     return pso
-
-
-
 
 # fmt: off
 @pytest.fixture(params=[
