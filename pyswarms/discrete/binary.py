@@ -63,31 +63,6 @@ from ..utils.reporter import Reporter
 
 
 class BinaryPSO(DiscreteSwarmOptimizer):
-    def assertions(self):
-        """Check inputs and throw assertions
-
-        Raises
-        ------
-        KeyError
-            When one of the required dictionary keys is missing.
-        ValueError
-            When the number of neighbors is not within the range :code:`[0, n_particles]`.
-            When the p-value is not in the list of values :code:`[1,2]`.
-        """
-        super(BinaryPSO, self).assertions()
-
-        if not all(key in self.options for key in ("k", "p")):
-            raise KeyError("Missing either k or p in options")
-        if not 0 <= self.k <= self.n_particles:
-            raise ValueError(
-                "No. of neighbors must be between 0 and no. of" "particles."
-            )
-        if self.p not in [1, 2]:
-            raise ValueError(
-                "p-value should either be 1 (for L1/Minkowski)"
-                "or 2 (for L2/Euclidean)."
-            )
-
     def __init__(
         self,
         n_particles,
@@ -140,8 +115,6 @@ class BinaryPSO(DiscreteSwarmOptimizer):
             velocity_clamp=velocity_clamp,
             ftol=ftol,
         )
-        # Invoke assertions
-        self.assertions()
         # Initialize the resettable attributes
         self.reset()
         # Initialize the topology

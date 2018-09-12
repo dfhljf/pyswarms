@@ -122,8 +122,6 @@ class GlobalBestPSO(SwarmOptimizer):
 
         # Initialize logger
         self.rep = Reporter(logger=logging.getLogger(__name__))
-        # Invoke assertions
-        self.assertions()
         # Initialize the resettable attributes
         self.reset()
         # Initialize the topology
