@@ -76,6 +76,7 @@ def generate_swarm(
         raise
     except TypeError:
         rep.logger.exception("Invalid input type!")
+        raise
     else:
         return pos
 
@@ -116,6 +117,7 @@ def generate_discrete_swarm(
         )
     except TypeError:
         rep.logger.exception("Invalid input type!")
+        raise
     else:
         return pos
 
