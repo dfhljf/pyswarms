@@ -15,13 +15,13 @@ class TestLocalBestOptimizer(ABCTestOptimizer):
 
     @pytest.fixture
     def optimizer_history(self, options):
-        pso = LocalBestPSO(10, 2, options)
-        pso.optimize(sphere, 1000)
-        return pso
+        opt = LocalBestPSO(10, 2, options)
+        opt.optimize(sphere, 1000)
+        return opt
 
     @pytest.fixture
     def optimizer_reset(self, options):
-        pso = LocalBestPSO(10, 2, options)
-        pso.optimize(sphere, 10)
-        pso.reset()
-        return pso
+        opt = LocalBestPSO(10, 2, options)
+        opt.optimize(sphere, 10)
+        opt.reset()
+        return opt

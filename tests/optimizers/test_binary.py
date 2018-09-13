@@ -16,13 +16,13 @@ class TestDiscreteOptimizer(ABCTestDiscreteOptimizer):
 
     @pytest.fixture
     def optimizer_history(self, options):
-        pso = BinaryPSO(10, 2, options=options)
-        pso.optimize(sphere, 1000)
-        return pso
+        opt = BinaryPSO(10, 2, options=options)
+        opt.optimize(sphere, 1000)
+        return opt
 
     @pytest.fixture
     def optimizer_reset(self, options):
-        pso = BinaryPSO(10, 2, options=options)
-        pso.optimize(sphere, 10)
-        pso.reset()
-        return pso
+        opt = BinaryPSO(10, 2, options=options)
+        opt.optimize(sphere, 10)
+        opt.reset()
+        return opt
