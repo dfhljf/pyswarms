@@ -16,11 +16,10 @@ class VonNeumann(Ring):
     def __init__(self, p, r, static=None):
         # static = None is just an artifact to make the API consistent
         # Setting it will not change swarm behavior
-        super(VonNeumann, self).__init__(static=True, p=p, k=None)
-        self.r = r
+        super(VonNeumann, self).__init__(static=True)
         self.rep = Reporter(logger=logging.getLogger(__name__))
 
-    def compute_gbest(self, swarm):
+    def compute_gbest(self, swarm, p, r, **kwargs):
         """Updates the global best using a neighborhood approach
 
         The Von Neumann topology inherits from the Ring topology and uses
@@ -46,8 +45,8 @@ class VonNeumann(Ring):
         float
             Best cost
         """
-        self.k = VonNeumann.delannoy(swarm.dimensions, self.r)
-        return super(VonNeumann, self).compute_gbest(swarm)
+        k = VonNeumann.delannoy(swarm.dimensions, r)
+        return super(VonNeumann, self).compute_gbest(swarm, p, k)
 
     @staticmethod
     def delannoy(d, r):

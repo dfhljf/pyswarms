@@ -29,7 +29,7 @@ class Pyramid(Topology):
         super(Pyramid, self).__init__(static)
         self.rep = Reporter(logger=logging.getLogger(__name__))
 
-    def compute_gbest(self, swarm):
+    def compute_gbest(self, swarm, **kwargs):
         """Update the global best using a pyramid neighborhood approach
 
         This topology uses the :code:`Delaunay` class from :code:`scipy`. To prevent precision errors in the Delaunay

@@ -25,7 +25,7 @@ class Star(Topology):
         super(Star, self).__init__(static=True)
         self.rep = Reporter(logger=logging.getLogger(__name__))
 
-    def compute_gbest(self, swarm):
+    def compute_gbest(self, swarm, **kwargs):
         """Update the global best using a star topology
 
         This method takes the current pbest_pos and pbest_cost, then returns
