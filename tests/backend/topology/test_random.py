@@ -13,16 +13,18 @@ class TestRandomTopology(ABCTestTopology):
     def topology(self):
         return Random
 
-    @pytest.fixture
-    def options(self):
-        return {"k": 2}
+    @pytest.fixture(params=[1, 2, 3])
+    def options(self, request):
+        return {"k": request.param}
 
     @pytest.mark.parametrize("static", [True, False])
     @pytest.mark.parametrize("k", [1, 2])
-    def test_compute_gbest_return_values(self, swarm, topology, k, static):
+    def test_compute_gbest_return_values(
+        self, swarm, options, topology, k, static
+    ):
         """Test if update_gbest_neighborhood gives the expected return values"""
-        topo = topology(static=static, k=k)
-        pos, cost = topo.compute_gbest(swarm)
+        topo = topology(static=static)
+        pos, cost = topo.compute_gbest(swarm, **options)
         expected_pos = np.array(
             [9.90438476e-01, 2.50379538e-03, 1.87405987e-05]
         )
@@ -34,7 +36,7 @@ class TestRandomTopology(ABCTestTopology):
     @pytest.mark.parametrize("k", [1, 2])
     def test_compute_neighbors_return_values(self, swarm, topology, k, static):
         """Test if __compute_neighbors() gives the expected shape and symmetry"""
-        topo = topology(static=static, k=k)
+        topo = topology(static=static)
         adj_matrix = topo._Random__compute_neighbors(swarm, k=k)
         assert adj_matrix.shape == (swarm.n_particles, swarm.n_particles)
         assert np.allclose(
@@ -48,7 +50,7 @@ class TestRandomTopology(ABCTestTopology):
     ):
         """Test if __compute_neighbors() gives the expected matrix"""
         np.random.seed(1)
-        topo = topology(static=static, k=k)
+        topo = topology(static=static)
         adj_matrix = topo._Random__compute_neighbors(swarm, k=k)
         # fmt: off
         comparison_matrix = np.array([[1, 1, 1, 0, 1, 0, 0, 0, 0, 1],

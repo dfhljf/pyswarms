@@ -17,13 +17,13 @@ class TestStarTopology(ABCTestTopology):
     def options(self):
         return {}
 
-    def test_compute_gbest_return_values(self, swarm, topology):
+    def test_compute_gbest_return_values(self, swarm, options, topology):
         """Test if compute_gbest() gives the expected return values"""
         topo = topology()
         expected_cost = 1.0002528364353296
         expected_pos = np.array(
             [9.90438476e-01, 2.50379538e-03, 1.87405987e-05]
         )
-        pos, cost = topo.compute_gbest(swarm)
+        pos, cost = topo.compute_gbest(swarm, **options)
         assert cost == pytest.approx(expected_cost)
         assert pos == pytest.approx(expected_pos)

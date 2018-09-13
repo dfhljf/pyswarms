@@ -13,7 +13,7 @@ from ...utils.reporter import Reporter
 
 
 class VonNeumann(Ring):
-    def __init__(self, p, r, static=None):
+    def __init__(self, static=None):
         # static = None is just an artifact to make the API consistent
         # Setting it will not change swarm behavior
         super(VonNeumann, self).__init__(static=True)

@@ -21,8 +21,8 @@ class TestVonNeumannTopology(ABCTestTopology):
     @pytest.mark.parametrize("p", [1, 2])
     def test_update_gbest_neighborhood(self, swarm, topology, p, r):
         """Test if update_gbest_neighborhood gives the expected return values"""
-        topo = topology(p=p, r=r)
-        pos, cost = topo.compute_gbest(swarm)
+        topo = topology()
+        pos, cost = topo.compute_gbest(swarm, p=p, r=r)
         expected_pos = np.array(
             [9.90438476e-01, 2.50379538e-03, 1.87405987e-05]
         )
