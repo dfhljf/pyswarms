@@ -19,7 +19,9 @@ from .base import Topology
 
 
 class Star(Topology):
-    def __init__(self):
+    def __init__(self, static=None, **kwargs):
+        # static = None is just an artifact to make the API consistent
+        # Setting it will not change swarm behavior
         super(Star, self).__init__(static=True)
         self.rep = Reporter(logger=logging.getLogger(__name__))
 

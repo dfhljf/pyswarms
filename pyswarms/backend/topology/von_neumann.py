@@ -13,7 +13,9 @@ from ...utils.reporter import Reporter
 
 
 class VonNeumann(Ring):
-    def __init__(self, p, r):
+    def __init__(self, p, r, static=None):
+        # static = None is just an artifact to make the API consistent
+        # Setting it will not change swarm behavior
         super(VonNeumann, self).__init__(static=True, p=p, k=None)
         self.r = r
         self.rep = Reporter(logger=logging.getLogger(__name__))

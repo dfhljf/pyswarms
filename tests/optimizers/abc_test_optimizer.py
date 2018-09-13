@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import abc
+
 import numpy as np
 import pytest
 
 from pyswarms.utils.functions.single_obj import sphere, rosenbrock
 
 
-class ABCTestOptimizer(object):
+class ABCTestOptimizer(abc.ABC):
     """Abstract class that defines various tests for high-level optimizers
 
     Whenever an optimizer implementation inherits from ABCTestOptimizer,
